@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-05T07:46:20.642Z</updated>
+  <updated>2020-04-05T07:53:54.047Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,19 +17,19 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>js停止事件冒泡 阻止事件冒泡行为（阻止a标签）</title>
+    <title>阻止事件冒泡与阻止浏览器的默认行为</title>
     <link href="http://yoursite.com/2020/04/05/js-ting-zhi-shi-jian-mou-pao-zu-zhi-shi-jian-mou-pao-xing-wei-zu-zhi-a-biao-qian/"/>
     <id>http://yoursite.com/2020/04/05/js-ting-zhi-shi-jian-mou-pao-zu-zhi-shi-jian-mou-pao-xing-wei-zu-zhi-a-biao-qian/</id>
     <published>2020-04-05T07:47:18.015Z</published>
-    <updated>2020-04-05T07:46:20.642Z</updated>
+    <updated>2020-04-05T07:53:54.047Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="js-停止事件冒泡-阻止浏览器的默认行为（阻止超连接-）"><a href="#js-停止事件冒泡-阻止浏览器的默认行为（阻止超连接-）" class="headerlink" title="js 停止事件冒泡 阻止浏览器的默认行为（阻止超连接 # ）"></a><a href="https://www.cnblogs.com/yuzhongwusan/archive/2008/12/27/1363417.html" target="_blank" rel="noopener">js 停止事件冒泡 阻止浏览器的默认行为（阻止超连接 # ）</a></h3><p>在前端开发工作中，由于浏览器兼容性等问题，我们会经常用到“停止事件冒泡”和“阻止浏览器默认行为”。 </p><h4 id="1-停止事件冒泡"><a href="#1-停止事件冒泡" class="headerlink" title="1.停止事件冒泡"></a>1.停止事件冒泡</h4><blockquote><p>JavaScript代码 </p><p>//如果提供了事件对象，则这是一个非IE浏览器<br>if ( e &amp;&amp; e.stopPropagation )<br>//因此它支持W3C的stopPropagation()方法<br>e.stopPropagation();<br>else<br>//否则，我们需要使用IE的方式来取消事件冒泡<br>window.event.cancelBubble = true;<br>return false; </p></blockquote><h4 id="阻止浏览器默认行为"><a href="#阻止浏览器默认行为" class="headerlink" title="阻止浏览器默认行为"></a>阻止浏览器默认行为</h4><blockquote><p>JavaScript代码 </p><p>//如果提供了事件对象，则这是一个非IE浏览器<br>if ( e &amp;&amp; e.preventDefault )<br>//阻止默认浏览器动作(W3C)<br>e.preventDefault();<br>else<br>//IE中阻止函数器默认动作的方式<br>window.event.returnValue = false;<br>return false; </p></blockquote><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
+    <content type="html"><![CDATA[<h3 id="js-阻止事件冒泡-阻止浏览器的默认行为（阻止超连接-）"><a href="#js-阻止事件冒泡-阻止浏览器的默认行为（阻止超连接-）" class="headerlink" title="js 阻止事件冒泡 阻止浏览器的默认行为（阻止超连接 # ）"></a><a href="https://www.cnblogs.com/yuzhongwusan/archive/2008/12/27/1363417.html" target="_blank" rel="noopener">js 阻止事件冒泡 阻止浏览器的默认行为（阻止超连接 # ）</a></h3><p>在前端开发工作中，由于浏览器兼容性等问题，我们会经常用到“停止事件冒泡”和“阻止浏览器默认行为”。 </p><h4 id="1-停止事件冒泡"><a href="#1-停止事件冒泡" class="headerlink" title="1.停止事件冒泡"></a>1.停止事件冒泡</h4><blockquote><p>JavaScript代码 </p><p>//如果提供了事件对象，则这是一个非IE浏览器<br>if ( e &amp;&amp; e.stopPropagation )<br>//因此它支持W3C的stopPropagation()方法<br>e.stopPropagation();<br>else<br>//否则，我们需要使用IE的方式来取消事件冒泡<br>window.event.cancelBubble = true;<br>return false; </p></blockquote><h4 id="阻止浏览器默认行为"><a href="#阻止浏览器默认行为" class="headerlink" title="阻止浏览器默认行为"></a>阻止浏览器默认行为</h4><blockquote><p>JavaScript代码 </p><p>//如果提供了事件对象，则这是一个非IE浏览器<br>if ( e &amp;&amp; e.preventDefault )<br>//阻止默认浏览器动作(W3C)<br>e.preventDefault();<br>else<br>//IE中阻止函数器默认动作的方式<br>window.event.returnValue = false;<br>return false; </p></blockquote><script>        document.querySelectorAll('.github-emoji')          .forEach(el => {            if (!el.dataset.src) { return; }            const img = document.createElement('img');            img.style = 'display:none !important;';            img.src = el.dataset.src;            img.addEventListener('error', () => {              img.remove();              el.style.color = 'inherit';              el.style.backgroundImage = 'none';              el.style.background = 'none';            });            img.addEventListener('load', () => {              img.remove();            });            document.body.appendChild(img);          });      </script>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h3 id=&quot;js-停止事件冒泡-阻止浏览器的默认行为（阻止超连接-）&quot;&gt;&lt;a href=&quot;#js-停止事件冒泡-阻止浏览器的默认行为（阻止超连接-）&quot; class=&quot;headerlink&quot; title=&quot;js 停止事件冒泡 阻止浏览器的默认行为（阻止超连接 # ）&quot;&gt;&lt;/a&gt;
+        &lt;h3 id=&quot;js-阻止事件冒泡-阻止浏览器的默认行为（阻止超连接-）&quot;&gt;&lt;a href=&quot;#js-阻止事件冒泡-阻止浏览器的默认行为（阻止超连接-）&quot; class=&quot;headerlink&quot; title=&quot;js 阻止事件冒泡 阻止浏览器的默认行为（阻止超连接 # ）&quot;&gt;&lt;/a&gt;
       
     
     </summary>
