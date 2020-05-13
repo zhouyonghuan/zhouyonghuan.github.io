@@ -706,6 +706,74 @@ null是访问一个未存在的对象（引用类型），这时返回的值就�
 <p>ready事件在DOM结构绘制完成之后就绘执行。这样能确保就算有大量的媒体文件没加载出来，JS代码一样可以执行。 </p>
 <p>2.load事件必须等到网页中所有内容全部加载完毕之后才被执行。如果一个网页中有大量的图片的话，则就会出现这种情况：网页文档已经呈现出来，但由于网页数据还没有完全加载完毕，导致load事件不能够即时被触发。 </p>
 </blockquote>
+<h3 id="18-js常见的内存泄漏"><a href="#18-js常见的内存泄漏" class="headerlink" title="18.js常见的内存泄漏"></a>18.js常见的内存泄漏</h3><blockquote>
+<p>内存泄漏是指当一块内存不再被应用程序使用，由于某种原因，这块内存没有返回给操作系统或者内存内存池对象现象。</p>
+<p>1.闭包：例如函数A里面嵌套了函数B，函数B又间接的访问了函数A里面的变量，函数A里面的变量引用数最少为1，函数A里面所占用的变量就无法被回收。</p>
+<p>2.意外的全局变量：在javascript非严格模式中未定义的变量会自动绑定在全局对象（window/global）,比如</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>{</span><br><span class="line"> bar = <span class="string">"sssssaa"</span>;</span><br><span class="line">}</span><br><span class="line">foo()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>foo()在执行的时候，由于内部变量没有定义，相当于windo.bar=”sssssaa”,函数执行完毕，本应该销毁回收的变量，却永久的保存在内存中。</p>
+<p>3.定时器:与节点或数据关联计时器不在需要，node对象可以删除，整个回调函数不需要也可以删除。如果计时器回调函数仍然没有没回收（计时器停止才会被回收）。计时器仍继续执行就会造成内存泄漏。</p>
+</blockquote>
+<h3 id="19-has路由和history路由"><a href="#19-has路由和history路由" class="headerlink" title="19.has路由和history路由"></a>19.has路由和history路由</h3><blockquote>
+<p>has本来是用来做页面定位的，如果拿来做路由的话，原本的锚点功能就不能用了。其次，has的传参是基于url的，如果要传递复杂的数据，会有体积的限制，而history模式不仅可以在url里放参数，还可以将数据存放到一个特定的对象中放到一个特定的对象中。</p>
+</blockquote>
+<h3 id="20-router和route"><a href="#20-router和route" class="headerlink" title="20.router和route"></a>20.router和route</h3><blockquote>
+<p>1.$router是Vuerouter的一个对象，通过Vue.use(Vuerouter)和Vue构造函数得到的一个router的实例对象，这个对象是一个全局对象，他包含了所有的所有路由，包含了许多关键字的对象和属性。$router.push({path:’home’}),本质是在添加一个history记录</p>
+<p>$router.rqplace({path:’home’}),//替换路由，没有历史记录</p>
+<p>2.$route是一个跳转的路由对象，每个路由都会有一个</p>
+<p>$route对象，是一个局部对象，可以获取对应的name，path，params，query等参数信息</p>
+</blockquote>
+<h3 id="21-new关键字"><a href="#21-new关键字" class="headerlink" title="21.new关键字"></a>21.new关键字</h3><blockquote>
+<p>1.开辟了一块内存空间 创建了一个新对象</p>
+<p>2.让this指向了这个空对象</p>
+<p>3.调用构造函数 给对象添加属性和方法</p>
+<p>4.返回这个新对象</p>
+</blockquote>
+<h3 id="22-nextTick"><a href="#22-nextTick" class="headerlink" title="22.$nextTick"></a>22.$nextTick</h3><blockquote>
+<p>问题：由于更新vue的变量后不会立即更新变量映射的dom，但是vue提供了$nextTick()方法，我们可以把希望在真实dom更新完成后执行的动作放在$nextTick</p>
+</blockquote>
+<h3 id="23-箭头函数"><a href="#23-箭头函数" class="headerlink" title="23.箭头函数"></a>23.箭头函数</h3><blockquote>
+<p>1.箭头函数的this指向外层函数作用域的this。</p>
+<p>2.箭头函数的this是定义函数时所在上下文中的this</p>
+<p>3.箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象</p>
+</blockquote>
+<h3 id="24-vue的深度监听"><a href="#24-vue的深度监听" class="headerlink" title="24.vue的深度监听"></a>24.vue的深度监听</h3><blockquote>
+<p>vue开启deep：true ，意味着开启了深度监听， 某个被监听的对象（引用类型数据）里面的任何数据发生变化都会触发handler函数</p>
+</blockquote>
+<h3 id="25-vue中绝对路径的配置（在vue-config-js中配置）"><a href="#25-vue中绝对路径的配置（在vue-config-js中配置）" class="headerlink" title="25.vue中绝对路径的配置（在vue.config.js中配置）"></a>25.vue中绝对路径的配置（在vue.config.js中配置）</h3><blockquote>
+<p>1.引入node里的path模块</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>2.封装 <code>resolve</code>函数，使用  <code>__dirname</code>获取当前文件的所在目录</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolve</span> (<span class="params">dir</span>)</span>{</span><br><span class="line">    <span class="keyword">return</span> path.join(__dirname,dir)   <span class="comment">//path.join(__dirname) 设置绝对路径</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p> <code>__dirname</code>：当前配置的文件所在的绝对路径(双下划线)<br><code>dir</code>：传入的文件夹 </p>
+<p>3.在 在<code>module.exports</code>中设置别名 </p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.expots = {</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    chainWebpack :<span class="function">(<span class="params">config</span>) =&gt;</span> {</span><br><span class="line">        config.resolve.alias</span><br><span class="line">            .set(<span class="string">'@'</span>, resolve(<span class="string">'./src'</span>))</span><br><span class="line">            .set(<span class="string">'views'</span>,resolve(<span class="string">'./src/view'</span>))</span><br><span class="line">            .set(<span class="string">'assets'</span>,resolve(<span class="string">'./src/assets'</span>))</span><br><span class="line">            <span class="comment">//...可以继续自定义别名</span></span><br><span class="line">             <span class="comment">//set 第一个参数：设置的别名；第二个参数：原来默认的路径</span></span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>此时<br> @：表示 ‘./src’<br> views: 表示 ‘./src/view’<br> assets: 表示 ‘./src/assets’<br> set 第一个参数：表示替换默认路径设置的别名；第二个参数：表示原来默认的路径</p>
+<h5 id="vue-config-js中配置的全部代码"><a href="#vue-config-js中配置的全部代码" class="headerlink" title="vue.config.js中配置的全部代码"></a>vue.config.js中配置的全部代码</h5><figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">resolve</span> (<span class="params">dir</span>)</span>{</span><br><span class="line">    <span class="keyword">return</span> path.join(__dirname,dir)   <span class="comment">//path.join(__dirname) 设置绝对路径 双下划线</span></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.expots = {</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    chainWepack :<span class="function">(<span class="params">config</span>) =&gt;</span> {</span><br><span class="line">        config.resolve.alias</span><br><span class="line">            .set(<span class="string">'@'</span>, resolve(<span class="string">'./src'</span>))</span><br><span class="line">            .set(<span class="string">'views'</span>,resolve(<span class="string">'./src/view'</span>))</span><br><span class="line">            .set(<span class="string">'assets'</span>,resolve(<span class="string">'./src/assets'</span>))</span><br><span class="line">            <span class="comment">//...可以继续自定义别名</span></span><br><span class="line">             <span class="comment">//set 第一个参数：设置的别名；第二个参数：原来默认的路径</span></span><br><span class="line">    }</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+</blockquote>
+<h3 id="26-vue单页面改多页面"><a href="#26-vue单页面改多页面" class="headerlink" title="26.vue单页面改多页面"></a>26.vue单页面改多页面</h3><blockquote>
+<p>单页面改多页面链接： <a href="https://www.cnblogs.com/webhmy/p/10009364.html" target="_blank" rel="noopener">https://www.cnblogs.com/webhmy/p/10009364.html</a> </p>
+<p>单页面改多页面链接： <a href="http://www.manongjc.com/article/19730.html" target="_blank" rel="noopener">http://www.manongjc.com/article/19730.html</a> </p>
+</blockquote>
+<h3 id="27-bind、call、apply（改变this的方法）区别"><a href="#27-bind、call、apply（改变this的方法）区别" class="headerlink" title="27.bind、call、apply（改变this的方法）区别"></a>27.bind、call、apply（改变this的方法）区别</h3><ul>
+<li><p><code>call</code> 和 <code>apply</code> 都是为了解决改变 <code>this</code> 的指向。作用都是相同的，只是传参的方式不同。</p>
+</li>
+<li><p>除了第一个参数外，<code>call</code> 可以接收一个参数列表，<code>apply</code> 只接受一个参数数组</p>
+<figure class="highlight javascript"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = {</span><br><span class="line">    value: <span class="number">1</span></span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span>(<span class="params">name, age</span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(name)</span><br><span class="line">    <span class="built_in">console</span>.log(age)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.value)</span><br><span class="line">}</span><br><span class="line">getValue.call(a, <span class="string">'yck'</span>, <span class="string">'24'</span>)</span><br><span class="line">getValue.apply(a, [<span class="string">'yck'</span>, <span class="string">'24'</span>])</span><br></pre></td></tr></tbody></table></figure>
+
+</li>
+</ul>
+<blockquote>
+<p> <code>bind</code> 和其他两个方法作用也是一致的，只是该方法会返回一个函数。并且我们可以通过 </p>
+<p><code>bind</code> 实现柯里化 </p>
+</blockquote>
+<h3 id="28-另一个新大陆（你懂的！了解更多，请移步大佬专区）"><a href="#28-另一个新大陆（你懂的！了解更多，请移步大佬专区）" class="headerlink" title="28.另一个新大陆（你懂的！了解更多，请移步大佬专区）"></a>28.另一个新大陆（你懂的！了解更多，请移步大佬专区）</h3><blockquote>
+<p> 链接：<a href="http://blog.poetries.top/FE-Interview-Questions/" target="_blank" rel="noopener">http://blog.poetries.top/FE-Interview-Questions/</a> </p>
+</blockquote>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
